@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Category } from "../../Entites/CategoryEntity";
 import { CategoryDTO } from "../dtos/CategoryDTO";
 import {
@@ -16,7 +17,7 @@ export class CategoryRepositoryInMemory implements ICategoryRepository {
   async GetCategoryByName(
     category_name: string
   ): Promise<CategoryDTO | undefined> {
-    const category = this.categories.find(
+    const category = await this.categories.find(
       (category) => category.name === category_name
     );
 
@@ -31,7 +32,44 @@ export class CategoryRepositoryInMemory implements ICategoryRepository {
     name,
     description,
   }: ICreateCategoryProps): Promise<CategoryDTO> {
-    const NewCategory = new Category({ name, description });
+    const NewCategory = new Category();
+
+    Object.assign(NewCategory, {
+      name,
+      description,
+      created_at: new Date(),
+    });
+
+    this.categories.push(NewCategory);
+
     return NewCategory;
   }
 }
+
+// import { RentalsUseCase } from "./RentalsUseCase";
+
+// describe("Preview", () => {
+//   it("should simulate the rent", async () => {
+//     const preview = new RentalsUseCase();
+
+//     const rent = await preview.execute({
+//       licensePlate: "ABC-1234",
+//       days: 7,
+//       personAge: 18,
+//     });
+
+//     expect(rent).toBe(275);
+//   });
+
+//   it("should simulate the rent", async () => {
+//     const preview = new RentalsUseCase();
+
+//     const rent = await preview.execute({
+//       licensePlate: "ABC-1111",
+//       days: 7,
+//       personAge: 18,
+//     });
+
+//     expect(rent).toBe(235.5);
+//   });
+// });
