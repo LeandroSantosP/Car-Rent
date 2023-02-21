@@ -9,18 +9,22 @@ import {
 export class CategoryRepositoryInMemory implements ICategoryRepository {
   categories: CategoryDTO[] = [];
 
-  async GetCategoryById(category_id: string): Promise<CategoryDTO | undefined> {
+  async GetCategoryById(category_id: string): Promise<CategoryDTO | null> {
     const category = this.categories.find((cate) => cate.id === category_id);
+
+    if (!category) {
+      return null;
+    }
 
     return category;
   }
-  async GetCategoryByName(
-    category_name: string
-  ): Promise<CategoryDTO | undefined> {
+  async GetCategoryByName(category_name: string): Promise<CategoryDTO | null> {
     const category = await this.categories.find(
       (category) => category.name === category_name
     );
-
+    if (!category) {
+      return null;
+    }
     return category;
   }
 

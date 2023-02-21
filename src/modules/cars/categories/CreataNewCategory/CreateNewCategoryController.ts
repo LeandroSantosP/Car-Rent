@@ -8,7 +8,7 @@ export class CreateNewCategoryController {
 
     const service = container.resolve(CreateNewCategoryUseCase);
 
-    const result = service.execute({ description, name });
+    const result = await service.execute({ description, name });
 
     return res.status(201).json(result);
   }

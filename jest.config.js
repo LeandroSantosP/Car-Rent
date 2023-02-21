@@ -1,5 +1,12 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
+  roots: ["<rootDir>/src"],
+  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+  coverageDirectory: "coverage",
+  testEnvironment: "node",
+  transform: {
+    ".+\\.ts$": "ts-jest",
+  },
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1",
+  },
 };

@@ -11,12 +11,10 @@ export abstract class ICategoryRepository {
     description,
   }: ICreateCategoryProps): Promise<CategoryDTO>;
 
-  abstract GetCategoryById(
-    category_id: string
-  ): Promise<CategoryDTO | undefined>;
+  abstract GetCategoryById(category_id: string): Promise<CategoryDTO | null>;
   abstract GetCategoryByName(
     category_name: string
-  ): Promise<CategoryDTO | undefined>;
+  ): Promise<CategoryDTO | null>;
 
   abstract ListAllCategory(): Promise<CategoryDTO[]>;
 }

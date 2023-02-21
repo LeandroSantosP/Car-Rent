@@ -23,8 +23,14 @@ Somente Admin podem ser possivel de criar Categorias
 # Specification
 
 **RF** => Requisitos Funcionais
+Deve ser possivel cadastar uma especificacao para um carro
+deve ser possivel listar todas as especificacoes
+deve ser possivel listar todos os carros
 
 **RN** Regra de negocio
+Nao deve ser possivel cadrastrar uma especificao para um carro nao catrastrado.
+nao deve ser possivel uma especificao ja existente para o mesmo carro.
+O Usuario responsavel pelo cadrastro de especificao deve ser amdin
 
 # Cars
 

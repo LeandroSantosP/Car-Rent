@@ -3,9 +3,9 @@ import { CarDTO } from "../dtos/CarDTO";
 import { ICarRepository, ICarRepositoryProps } from "../ICarRepository";
 
 export class CarRepositoryInMemory implements ICarRepository {
-  cars: CarDTO[] = [];
+  cars: Car[] = [];
 
-  async ListAllCars(): Promise<CarDTO[]> {
+  async ListAllCars(): Promise<Car[]> {
     return this.cars;
   }
   async create({
@@ -30,7 +30,7 @@ export class CarRepositoryInMemory implements ICarRepository {
     return;
   }
 
-  async GetCarByLicensePlate(license_plate: string): Promise<CarDTO | null> {
+  async GetCarByLicensePlate(license_plate: string): Promise<Car | null> {
     const carByLicensePlate = this.cars.find(
       (car) => car.license_plate == license_plate
     );

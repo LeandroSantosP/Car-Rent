@@ -1,3 +1,5 @@
+import { PrismaClient, Prisma } from "@prisma/client";
+import { prisma } from "../../../../../shared/prisma/client";
 import { CategoryDTO } from "../dtos/CategoryDTO";
 import {
   ICategoryRepository,
@@ -5,16 +7,46 @@ import {
 } from "../ICategoryRepository";
 
 export class CategoryRepository implements ICategoryRepository {
-  GetCategoryById(category_id: string): Promise<CategoryDTO | undefined> {
-    throw new Error("Method not implemented.");
+  private prisma;
+
+  constructor() {
+    this.prisma = prisma;
   }
-  GetCategoryByName(category_name: string): Promise<CategoryDTO | undefined> {
-    throw new Error("Method not implemented.");
+  async create({
+    name,
+    description,
+  }: ICreateCategoryProps): Promise<CategoryDTO> {
+    const newCategory = await this.prisma.category.create({
+      data: {
+        description,
+        name,
+      },
+    });
+
+    return newCategory;
   }
-  ListAllCategory(): Promise<CategoryDTO[]> {
-    throw new Error("Method not implemented.");
+  async GetCategoryById(category_id: string): Promise<CategoryDTO | null> {
+    console.log(category_id);
+
+    const categoryById = await this.prisma.category.findUnique({
+      where: {
+        id: category_id ?? "",
+      },
+    });
+
+    return categoryById;
   }
-  create({ name, description }: ICreateCategoryProps): Promise<CategoryDTO> {
-    throw new Error("Method not implemented.");
+  async GetCategoryByName(category_name: string): Promise<CategoryDTO | null> {
+    const CategoryByName = await this.prisma.category.findFirst({
+      where: {
+        name: category_name,
+      },
+    });
+
+    return CategoryByName;
+  }
+  async ListAllCategory(): Promise<CategoryDTO[]> {
+    const AllCategory = await this.prisma.category.findMany();
+    return AllCategory;
   }
 }

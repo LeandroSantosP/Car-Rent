@@ -1,21 +1,48 @@
+import { prisma } from "@/modules/shared/prisma/client";
 import { CarDTO } from "../dtos/CarDTO";
+
 import { ICarRepository, ICarRepositoryProps } from "../ICarRepository";
 
 export class CarRepository implements ICarRepository {
-  create({
+  private prisma;
+
+  constructor() {
+    this.prisma = prisma;
+  }
+  async create({
     daily_rate,
     brand,
     description,
     fine_amount,
     license_plate,
     name,
+    category_id,
   }: ICarRepositoryProps): Promise<void> {
-    throw new Error("Method not implemented.");
+    await prisma.car.create({
+      data: {
+        name,
+        description,
+        daily_rate,
+        brand,
+        fine_amount,
+        license_plate,
+        categoryId: category_id,
+      },
+    });
+
+    return;
   }
-  GetCarByLicensePlate(license_plate: string): Promise<CarDTO> {
-    throw new Error("Method not implemented.");
+
+  async GetCarByLicensePlate(license_plate: string): Promise<CarDTO | null> {
+    const carByLicense = await this.prisma.car.findUnique({
+      where: {
+        license_plate,
+      },
+    });
+    return carByLicense;
   }
-  ListAllCars(): Promise<CarDTO[]> {
-    throw new Error("Method not implemented.");
+  async ListAllCars(): Promise<CarDTO[]> {
+    const allCars = await this.prisma.car.findMany();
+    return allCars;
   }
 }

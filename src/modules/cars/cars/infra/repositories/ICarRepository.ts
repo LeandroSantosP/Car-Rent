@@ -1,3 +1,4 @@
+import { Car } from "../Entites/Car";
 import { CarDTO } from "./dtos/CarDTO";
 
 export interface ICarRepositoryProps {
@@ -7,6 +8,7 @@ export interface ICarRepositoryProps {
   license_plate: string;
   fine_amount: number;
   brand: string;
+  category_id?: string;
 }
 
 export abstract class ICarRepository {
@@ -17,9 +19,10 @@ export abstract class ICarRepository {
     fine_amount,
     license_plate,
     name,
+    category_id,
   }: ICarRepositoryProps): Promise<void>;
 
-  abstract GetCarByLicensePlate(license_plate: string): Promise<CarDTO | null>;
+  abstract GetCarByLicensePlate(license_plate: string): Promise<Car | null>;
 
   abstract ListAllCars(): Promise<CarDTO[]>;
 }
