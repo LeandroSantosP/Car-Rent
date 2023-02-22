@@ -1,4 +1,5 @@
 import { v4 as uuidV4 } from "uuid";
+import { CarImage } from "./CarImage";
 
 export class Car {
   id?: string;
@@ -11,6 +12,7 @@ export class Car {
   brand!: string;
   category_id?: string;
   created_at?: Date;
+  car_image?: CarImage[];
 
   constructor() {
     if (!this.id) {

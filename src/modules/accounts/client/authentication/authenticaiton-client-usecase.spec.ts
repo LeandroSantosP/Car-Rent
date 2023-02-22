@@ -18,7 +18,7 @@ describe("Authentication", () => {
   });
   it("should not be able to authentication client", async () => {
     expect(async () => {
-      let infos = clientInfos();
+      const infos = clientInfos();
       await newClient(infos);
 
       await authenticationClientUseCase.execute({

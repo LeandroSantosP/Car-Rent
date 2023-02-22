@@ -34,7 +34,7 @@ export async function EnsureAuthentication(
     }
 
     req.client = {
-      id: client.id,
+      id: client.id!,
     };
 
     next();

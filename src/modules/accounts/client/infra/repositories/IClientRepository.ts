@@ -8,6 +8,11 @@ export interface ICreateRequest {
   avatar?: string | null;
 }
 
+export interface IUploadAvatarRequest {
+  client_id?: string | null;
+  avatarRef: string;
+}
+
 export abstract class IClientRepository {
   abstract create({
     avatar,
@@ -20,6 +25,11 @@ export abstract class IClientRepository {
 
   abstract FindByEmail(email: string): Promise<Client | null>;
   abstract ListAllClientsADM(): Promise<Client[]>;
+
+  abstract UploadAvatar({
+    avatarRef,
+    client_id,
+  }: IUploadAvatarRequest): Promise<void>;
 
   abstract GetClientByLicenseDriver(
     driver_license: string

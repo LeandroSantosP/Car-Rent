@@ -1,11 +1,29 @@
 import { prisma } from "@/modules/shared/prisma/client";
 import { Client } from "../../Entity/Client";
-import { IClientRepository, ICreateRequest } from "../IClientRepository";
+import {
+  IClientRepository,
+  ICreateRequest,
+  IUploadAvatarRequest,
+} from "../IClientRepository";
 
 export class ClientRepository implements IClientRepository {
   private prisma;
   constructor() {
     this.prisma = prisma;
+  }
+  async UploadAvatar({
+    avatarRef,
+    client_id,
+  }: IUploadAvatarRequest): Promise<void> {
+    await this.prisma.client.update({
+      where: {
+        id: client_id ?? "",
+      },
+      data: {
+        avatar: avatarRef,
+      },
+    });
+    return;
   }
   async FindById(client_id: string): Promise<Client | null> {
     const client = await this.prisma.client.findUnique({

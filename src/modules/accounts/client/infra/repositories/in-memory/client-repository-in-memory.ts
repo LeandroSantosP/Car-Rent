@@ -1,9 +1,17 @@
 import { Client } from "../../Entity/Client";
-import { IClientRepository, ICreateRequest } from "../IClientRepository";
+import {
+  IClientRepository,
+  ICreateRequest,
+  IUploadAvatarRequest,
+} from "../IClientRepository";
 
 export class ClientRepositoryInMemory implements IClientRepository {
   Clients: Client[] = [];
   async FindById(client_id: string): Promise<Client | null> {
+    throw new Error("Method not implemented.");
+  }
+
+  UploadAvatar({ avatarRef, client_id }: IUploadAvatarRequest): Promise<void> {
     throw new Error("Method not implemented.");
   }
   async GetClientByLicenseDriver(

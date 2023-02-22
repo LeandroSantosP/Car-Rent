@@ -20,6 +20,19 @@ model Category {
   @@map("categories")
 }
 
+model Client {
+  id             String   @id @default(uuid())
+  name           String
+  password       String
+  email          String   @unique
+  driver_license String
+  avatar         String?
+  admin          Boolean  @default(false)
+  created_at     DateTime @default(now())
+
+  @@map("clients")
+}
+
 model Car {
   id            String   @id @default(uuid())
   name          String
@@ -36,14 +49,28 @@ model Car {
 
   Specification_Cars Specification_Cars[]
 
+  car_image Car_Image[]
+
   @@map("cars")
 }
 
+model Car_Image {
+  id         String   @id @default(uuid())
+  image_name String
+  created_at DateTime @default(now())
+
+  car   Car?    @relation(fields: [carId], references: [id])
+  carId String?
+
+  @@map("car_images")
+}
+
 model Specification {
-  id                 String               @id @default(uuid())
-  name               String
-  description        String
-  created_at         DateTime             @default(now())
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  created_at  DateTime @default(now())
+
   Specification_Cars Specification_Cars[]
 
   @@map("specification")
@@ -57,17 +84,4 @@ model Specification_Cars {
   carId String
 
   @@id([specificationId, carId])
-}
-
-model Client {
-  id             String   @id @default(uuid())
-  name           String
-  password       String
-  email          String   @unique
-  driver_license String
-  avatar         String?
-  admin          Boolean  @default(false)
-  created_at     DateTime @default(now())
-
-  @@map("clients")
 }
