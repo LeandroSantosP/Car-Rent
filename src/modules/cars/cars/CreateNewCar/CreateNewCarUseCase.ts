@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../shared/infra/middleware/AppError";
 import { ICategoryRepository } from "../../categories/infra/repositories/ICategoryRepository";
+import { Car } from "../infra/Entites/Car";
 import { ICarRepository } from "../infra/repositories/ICarRepository";
 
 interface IRequest {
@@ -32,7 +33,6 @@ export class CreateNewCarUseCase {
     fine_amount,
   }: IRequest) {
     if (category_id) {
-      console.log("pl");
       const categoryExits = await this.CategoryRepository.GetCategoryById(
         category_id
       );
@@ -54,14 +54,26 @@ export class CreateNewCarUseCase {
       throw new AppError("Plate Already Cadaster!");
     }
 
-    await this.CarRepository.create({
-      brand,
+    const newCar = new Car();
+
+    Object.assign(newCar, {
       daily_rate,
+      brand,
       description,
+      fine_amount,
       license_plate,
       name,
-      fine_amount,
       category_id,
+    });
+
+    await this.CarRepository.create({
+      brand: newCar.brand,
+      daily_rate: newCar.daily_rate,
+      description: newCar.description,
+      license_plate: newCar.license_plate,
+      name: newCar.name,
+      fine_amount: newCar.fine_amount,
+      category_id: newCar.category_id,
     });
 
     return;

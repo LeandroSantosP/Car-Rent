@@ -37,3 +37,16 @@ O Usuario responsavel pelo cadrastro de especificao deve ser amdin
 **RF** => Requisitos Funcionais
 
 **RN** Regra de negocio
+
+# Cadastrar Client
+
+**RF** => Requisitos Funcionais
+Deve ser possivel cadrastar um novo usuario
+Deve Ser posivel listar os client ADM[X]
+Deve ser possivel pegar dados de um client expesifico!
+
+**RN** Regra de negocio
+Nao deve ser possivel criar um usuario onde o email ja esta cadastra-do.
+O Clinet Deve ter Obrigatoriamente uma licenca para dirigir valida.
+Nao deve ser possivel criar um client que tenha a licenca de dirigir ja cadastra-da.
+Somente Usuarios admins podem listar todos os Usuarios,

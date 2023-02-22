@@ -6,6 +6,21 @@ import {
   ISpecificationRepositoryProps,
 } from "../ISpecificationRepository";
 
+export interface createResponse {
+  specification: {
+    description: string;
+    name: string;
+  };
+  car: {
+    description: string;
+    name: string;
+    category: {
+      description: string;
+      name: string;
+    } | null;
+  };
+}
+
 export class SpecificationRepository implements ISpecificationRepository {
   private prisma;
 
@@ -25,7 +40,8 @@ export class SpecificationRepository implements ISpecificationRepository {
   async create({
     description,
     name,
-  }: ISpecificationRepositoryProps): Promise<Specification> {
+    license_plate,
+  }: ISpecificationRepositoryProps): Promise<createResponse> {
     const newSpecification = new Specification();
 
     Object.assign(newSpecification, {
@@ -33,10 +49,40 @@ export class SpecificationRepository implements ISpecificationRepository {
       description,
     });
 
-    const specification = await this.prisma.specification.create({
+    const specification = await this.prisma.specification_Cars.create({
       data: {
-        name: newSpecification.name,
-        description: newSpecification.description,
+        specification: {
+          create: {
+            description,
+            name,
+          },
+        },
+        car: {
+          connect: {
+            license_plate,
+          },
+        },
+      },
+
+      select: {
+        car: {
+          select: {
+            name: true,
+            description: true,
+            category: {
+              select: {
+                name: true,
+                description: true,
+              },
+            },
+          },
+        },
+        specification: {
+          select: {
+            name: true,
+            description: true,
+          },
+        },
       },
     });
 

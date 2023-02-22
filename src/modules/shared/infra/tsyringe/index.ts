@@ -1,3 +1,5 @@
+import { IClientRepository } from "@/modules/accounts/client/infra/repositories/IClientRepository";
+import { ClientRepository } from "@/modules/accounts/client/infra/repositories/implemetations/ClientRepostory";
 import { container } from "tsyringe";
 import { ICarRepository } from "../../../cars/cars/infra/repositories/ICarRepository";
 import { CarRepository } from "../../../cars/cars/infra/repositories/implemetations/CarRepository";
@@ -14,6 +16,11 @@ container.registerSingleton<ICategoryRepository>(
 container.registerSingleton<ISpecificationRepository>(
   "SpecificationRepository",
   SpecificationRepository
+);
+
+container.registerSingleton<IClientRepository>(
+  "ClientRepository",
+  ClientRepository
 );
 
 container.registerSingleton<ICarRepository>("CarRepository", CarRepository);

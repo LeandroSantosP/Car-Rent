@@ -12,7 +12,7 @@ datasource db {
 
 model Category {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   description String
   created_at  DateTime @default(now())
   Car         Car[]
@@ -57,4 +57,17 @@ model Specification_Cars {
   carId String
 
   @@id([specificationId, carId])
+}
+
+model Client {
+  id             String   @id @default(uuid())
+  name           String
+  password       String
+  email          String   @unique
+  driver_license String
+  avatar         String?
+  admin          Boolean  @default(false)
+  created_at     DateTime @default(now())
+
+  @@map("clients")
 }

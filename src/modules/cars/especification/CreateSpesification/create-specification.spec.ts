@@ -1,23 +1,28 @@
 import "reflect-metadata";
 import { AppError } from "../../../shared/infra/middleware/AppError";
+import { CarRepository } from "../../cars/infra/repositories/implemetations/CarRepository";
 import { SpecificationRepositoryInMemory } from "../infra/repositories/in-memory/specification-repository-in-memory";
 import { ISpecificationRepository } from "../infra/repositories/ISpecificationRepository";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 let createSpecificationUseCase: CreateSpecificationUseCase;
+let carRepository: CarRepository;
 let specificationRepository: ISpecificationRepository;
 
 describe("Specification", () => {
   beforeEach(() => {
+    carRepository = new CarRepository();
     specificationRepository = new SpecificationRepositoryInMemory();
     createSpecificationUseCase = new CreateSpecificationUseCase(
-      specificationRepository
+      specificationRepository,
+      carRepository
     );
   });
   it("should be able to create a new specification", async () => {
     const Specification = {
       name: "Specification test",
       description: "Description test",
+      license_plate: "DSADaasdsa",
     };
     const newSpecification = await createSpecificationUseCase.execute(
       Specification
@@ -37,7 +42,6 @@ describe("Specification", () => {
   //     };
 
   //     await createSpecificationUseCase.execute(Specification);
-
   //     await createSpecificationUseCase.execute(newCategoryTestSecond);
   //   }).rejects.toBeInstanceOf(AppError);
   // });

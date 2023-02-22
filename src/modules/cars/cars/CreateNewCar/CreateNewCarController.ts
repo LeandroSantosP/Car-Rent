@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { CreateNewCarUseCase } from "./CreateNewCarUseCase";
 
 export class CreateNewCarController {
-  async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response): Promise<Response> {
     const {
       brand,
       daily_rate,

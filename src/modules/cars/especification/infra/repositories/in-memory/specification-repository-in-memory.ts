@@ -1,4 +1,5 @@
 import { Specification } from "../../Entity/Specification";
+import { createResponse } from "../implematation/SpecificationRepository";
 import {
   ISpecificationRepository,
   ISpecificationRepositoryProps,
@@ -7,6 +8,20 @@ import {
 export class SpecificationRepositoryInMemory
   implements ISpecificationRepository
 {
+  async create({
+    description,
+    name,
+    license_plate,
+  }: ISpecificationRepositoryProps): Promise<createResponse> {
+    const newSpecification = new Specification();
+
+    Object.assign(newSpecification, {
+      description,
+      name,
+      license_plate,
+    });
+    return newSpecification as any;
+  }
   specifications: Specification[] = [];
 
   async FindSpecification(name: string): Promise<Specification | null> {
@@ -17,18 +32,5 @@ export class SpecificationRepositoryInMemory
     }
 
     return Speciation;
-  }
-
-  async create({
-    description,
-    name,
-  }: ISpecificationRepositoryProps): Promise<Specification> {
-    const newSpecification = new Specification();
-
-    Object.assign(newSpecification, {
-      description,
-      name,
-    });
-    return newSpecification;
   }
 }

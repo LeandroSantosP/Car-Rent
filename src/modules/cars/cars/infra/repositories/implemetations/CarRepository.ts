@@ -1,4 +1,5 @@
 import { prisma } from "@/modules/shared/prisma/client";
+import { Car } from "../../Entites/Car";
 import { CarDTO } from "../dtos/CarDTO";
 
 import { ICarRepository, ICarRepositoryProps } from "../ICarRepository";
@@ -18,7 +19,7 @@ export class CarRepository implements ICarRepository {
     name,
     category_id,
   }: ICarRepositoryProps): Promise<void> {
-    await prisma.car.create({
+    await this.prisma.car.create({
       data: {
         name,
         description,
