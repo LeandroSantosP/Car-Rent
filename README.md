@@ -2,7 +2,6 @@
 
 **RF** => Requisitos Funcionais
 Deve Ser Possivel Cadastra um novo carro
-Deve Ser Possove listar todos od Carros
 
 **RN** Regra de negocio
 Nao Deve Ser Possivel Cadrastar um carro Com um Placa ja existem
@@ -11,6 +10,12 @@ O Carro deve ser cadrastrado, por padrao, com disponibilizada
 U Usuario Responsavel pelo cadrastro deve ser Usuario administrador
 
 # Listagem de Carros
+
+Deve Ser Possove listar todos os Carros disponivel
+O client nao precisa estar logado
+Deve Ser Possove listar todos os Carros pelo nome da categoria
+Deve Ser Possove listar todos os Carros pelo nome da marca
+Deve Ser Possove listar todos os Carros peolo nome do carro
 
 # Categorias
 

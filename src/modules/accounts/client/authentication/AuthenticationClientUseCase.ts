@@ -20,7 +20,7 @@ export class AuthenticationClientUseCase {
 
   async execute({ email, password }: IRequest) {
     const client = await this.ClientRepository.FindByEmail(email);
-    let userPass: string = "";
+    let userPass = "";
     if (client) {
       Object.keys(client).forEach((key) => {
         if (key !== "password") {

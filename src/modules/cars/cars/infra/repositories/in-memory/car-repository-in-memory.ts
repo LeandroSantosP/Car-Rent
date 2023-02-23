@@ -1,19 +1,62 @@
 import { Car } from "../../Entites/Car";
-import { CarDTO } from "../dtos/CarDTO";
-import { ICarRepository, ICarRepositoryProps } from "../ICarRepository";
+import { CarImage } from "../../Entites/CarImage";
+
+import {
+  CrateImageProps,
+  ICarRepository,
+  ICarRepositoryProps,
+  ICreateImageRequest,
+} from "../ICarRepository";
 
 export class CarRepositoryInMemory implements ICarRepository {
-  cars: Car[] = [];
+  public cars: Car[] = [];
+  public carsImage: CarImage[] = [];
 
-  async ListAllCars(): Promise<Car[]> {
-    return this.cars;
+  async ListAllCars(
+    brand?: string,
+    category_id?: string,
+    car_name?: string
+  ): Promise<Car[]> {
+    const cars = this.cars.filter((car) => {
+      if (!car.available) {
+        return;
+      }
+      if (
+        (brand && car.brand !== brand) ||
+        (car_name && car.name !== car_name) ||
+        (category_id && car.category_id !== category_id)
+      ) {
+        return;
+      }
+
+      return car;
+    });
+
+    return cars;
   }
+
+  async delete(license_plate: string): Promise<void> {
+    const restOfCars = this.cars.filter(
+      (car) => car.license_plate !== license_plate
+    );
+
+    this.cars = restOfCars;
+    return;
+  }
+  async CreateImage({
+    license_plate,
+    imageRef,
+  }: ICreateImageRequest): Promise<CrateImageProps> {
+    throw new Error("Method not implemented.");
+  }
+
   async create({
     daily_rate,
     brand,
     description,
     fine_amount,
     license_plate,
+    category_id,
     name,
   }: ICarRepositoryProps): Promise<void> {
     const newCar = new Car();
@@ -24,6 +67,7 @@ export class CarRepositoryInMemory implements ICarRepository {
       description,
       fine_amount,
       license_plate,
+      category_id,
     });
 
     this.cars.push(newCar);

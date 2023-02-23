@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../shared/infra/middleware/AppError";
-import { ICategoryRepository } from "../../categories/infra/repositories/ICategoryRepository";
-import { Car } from "../infra/Entites/Car";
-import { ICarRepository } from "../infra/repositories/ICarRepository";
+import { AppError } from "@/modules/shared/infra/middleware/AppError";
+import { ICategoryRepository } from "@/modules/cars/categories/infra/repositories/ICategoryRepository";
+import { Car } from "../../infra/Entites/Car";
+import { ICarRepository } from "../../infra/repositories/ICarRepository";
 
 interface IRequest {
   name: string;

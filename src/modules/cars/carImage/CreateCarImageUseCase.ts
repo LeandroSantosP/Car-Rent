@@ -6,7 +6,7 @@ import { ICarRepository } from "../cars/infra/repositories/ICarRepository";
 
 interface IRequest {
   license_plate: string;
-  imageRef: string;
+  imageRef: string | undefined;
 }
 
 @injectable()
@@ -26,7 +26,7 @@ export class CreateCarImageUseCase {
       throw new AppError("Invalid Car Plate!");
     }
 
-    const carsImage: CarImage[][] = [];
+    let carsImage: CarImage[] = [];
     if (car) {
       Object.keys(car).forEach((key) => {
         if (key !== "car_image") {
@@ -35,12 +35,11 @@ export class CreateCarImageUseCase {
         if (!car.car_image) {
           return;
         }
-
-        carsImage.push(car.car_image);
+        carsImage = car.car_image;
       });
     }
 
-    carsImage[0].forEach((image) => {
+    carsImage.forEach((image) => {
       if (image.image_name === imageRef) {
         throw new AppError("Image Already Exists!");
       }

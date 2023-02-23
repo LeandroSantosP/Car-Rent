@@ -19,7 +19,7 @@ export class AvatarImportUseCase {
     const client = await this.clientRepository.FindById(client_id);
 
     if (client?.avatar) {
-      await deleteFile(`./avatar/${client.avatar}`);
+      await deleteFile(`./tmp/avatar/${client.avatar}`);
     }
 
     if (!client) {

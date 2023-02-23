@@ -8,6 +8,7 @@ export interface ICarRepositoryProps {
   daily_rate: number;
   license_plate: string;
   fine_amount: number;
+  available?: boolean;
   brand: string;
   category_id?: string;
 }
@@ -37,6 +38,8 @@ export abstract class ICarRepository {
     category_id,
   }: ICarRepositoryProps): Promise<void>;
 
+  abstract delete(license_plate: string): Promise<void>;
+
   abstract CreateImage({
     license_plate,
     imageRef,
@@ -44,5 +47,9 @@ export abstract class ICarRepository {
 
   abstract GetCarByLicensePlate(license_plate: string): Promise<Car | null>;
 
-  abstract ListAllCars(): Promise<Car[]>;
+  abstract ListAllCars(
+    brand?: string,
+    category_id?: string,
+    car_name?: string
+  ): Promise<Car[]>;
 }

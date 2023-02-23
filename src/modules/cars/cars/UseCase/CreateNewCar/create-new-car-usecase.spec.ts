@@ -1,11 +1,10 @@
-import { exec } from "child_process";
 import "reflect-metadata";
-import { AppError } from "../../../shared/infra/middleware/AppError";
-import { ICategoryRepository } from "../../categories/infra/repositories/ICategoryRepository";
-import { CategoryRepositoryInMemory } from "../../categories/infra/repositories/in-memory/category-repository-in-memory";
-import { ICarRepository } from "../infra/repositories/ICarRepository";
-import { CarRepositoryInMemory } from "../infra/repositories/in-memory/car-repository-in-memory";
+import { AppError } from "@/modules/shared/infra/middleware/AppError";
+import { CategoryRepositoryInMemory } from "@/modules/cars/categories/infra/repositories/in-memory/category-repository-in-memory";
+import { ICarRepository } from "../../infra/repositories/ICarRepository";
+import { CarRepositoryInMemory } from "../../infra/repositories/in-memory/car-repository-in-memory";
 import { CreateNewCarUseCase } from "./CreateNewCarUseCase";
+import { ICategoryRepository } from "@/modules/cars/categories/infra/repositories/ICategoryRepository";
 
 let carRepository: ICarRepository;
 let categoryRepository: ICategoryRepository;
@@ -65,7 +64,7 @@ describe("Created Car", () => {
 
     await createNewCarUseCase.execute(newCar);
 
-    const allCars = await carRepository.ListAllCars();
+    const allCars = await carRepository.ListAllCars("Brand");
 
     const carr = allCars.find(
       (car) => car.license_plate === newCar.license_plate

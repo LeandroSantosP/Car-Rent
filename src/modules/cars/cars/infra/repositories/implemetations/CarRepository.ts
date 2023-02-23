@@ -16,6 +16,14 @@ export class CarRepository implements ICarRepository {
   constructor() {
     this.prisma = prisma;
   }
+  async delete(license_plate: string): Promise<void> {
+    await this.prisma.car.delete({
+      where: {
+        license_plate,
+      },
+    });
+    return;
+  }
   async CreateImage({
     license_plate,
     imageRef,
@@ -78,8 +86,18 @@ export class CarRepository implements ICarRepository {
 
     return carByLicense;
   }
-  async ListAllCars(): Promise<CarDTO[]> {
-    const allCars = await this.prisma.car.findMany();
+  async ListAllCars(
+    brand?: string,
+    category_id?: string,
+    car_name?: string
+  ): Promise<Car[]> {
+    const where = {
+      available: true,
+      categoryId: category_id ?? undefined,
+      brand: brand ?? undefined,
+      name: car_name ?? undefined,
+    };
+    const allCars = await this.prisma.car.findMany({ where });
     return allCars;
   }
 }

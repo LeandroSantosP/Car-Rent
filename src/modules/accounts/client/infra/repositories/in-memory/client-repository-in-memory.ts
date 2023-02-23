@@ -8,10 +8,18 @@ import {
 export class ClientRepositoryInMemory implements IClientRepository {
   Clients: Client[] = [];
   async FindById(client_id: string): Promise<Client | null> {
-    throw new Error("Method not implemented.");
+    const client = this.Clients.find((info) => info.id === client_id);
+
+    if (!client) {
+      return null;
+    }
+    return client;
   }
 
-  UploadAvatar({ avatarRef, client_id }: IUploadAvatarRequest): Promise<void> {
+  async UploadAvatar({
+    avatarRef,
+    client_id,
+  }: IUploadAvatarRequest): Promise<void> {
     throw new Error("Method not implemented.");
   }
   async GetClientByLicenseDriver(
