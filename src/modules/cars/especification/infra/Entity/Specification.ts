@@ -5,6 +5,7 @@ export class Specification {
   name!: string;
   description!: string;
   created_at?: Date;
+  Specification_Cars?: Specification[];
 
   constructor() {
     if (!this.id) {

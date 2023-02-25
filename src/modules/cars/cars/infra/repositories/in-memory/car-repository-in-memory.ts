@@ -12,6 +12,18 @@ export class CarRepositoryInMemory implements ICarRepository {
   public cars: Car[] = [];
   public carsImage: CarImage[] = [];
 
+  async GetCarById(id: string): Promise<Car | null> {
+    const car = this.cars.find((car) => car.id === id);
+    if (!car) {
+      return null;
+    }
+    return car;
+  }
+
+  CreateManyImage(car_id: string, image: string[]): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
   async ListAllCars(
     brand?: string,
     category_id?: string,
@@ -58,6 +70,7 @@ export class CarRepositoryInMemory implements ICarRepository {
     license_plate,
     category_id,
     name,
+    Specification_Cars,
   }: ICarRepositoryProps): Promise<void> {
     const newCar = new Car();
     Object.assign(newCar, {
@@ -68,6 +81,7 @@ export class CarRepositoryInMemory implements ICarRepository {
       fine_amount,
       license_plate,
       category_id,
+      Specification_Cars,
     });
 
     this.cars.push(newCar);

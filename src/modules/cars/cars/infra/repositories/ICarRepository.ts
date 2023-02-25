@@ -1,3 +1,4 @@
+import { Specification } from "@/modules/cars/especification/infra/Entity/Specification";
 import { Car } from "../Entites/Car";
 import { CarImage } from "../Entites/CarImage";
 import { CarDTO } from "./dtos/CarDTO";
@@ -11,6 +12,7 @@ export interface ICarRepositoryProps {
   available?: boolean;
   brand: string;
   category_id?: string;
+  Specification_Cars?: Specification[];
 }
 
 export interface ICreateImageRequest {
@@ -36,6 +38,7 @@ export abstract class ICarRepository {
     license_plate,
     name,
     category_id,
+    Specification_Cars,
   }: ICarRepositoryProps): Promise<void>;
 
   abstract delete(license_plate: string): Promise<void>;
@@ -46,6 +49,10 @@ export abstract class ICarRepository {
   }: ICreateImageRequest): Promise<CrateImageProps>;
 
   abstract GetCarByLicensePlate(license_plate: string): Promise<Car | null>;
+
+  abstract GetCarById(id: string): Promise<Car | null>;
+
+  abstract CreateManyImage(car_id: string, image: string[]): Promise<void>;
 
   abstract ListAllCars(
     brand?: string,

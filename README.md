@@ -30,7 +30,7 @@ Somente Admin podem ser possivel de criar Categorias
 **RF** => Requisitos Funcionais
 Deve ser possivel cadastar uma especificacao para um carro
 deve ser possivel listar todas as especificacoes
-deve ser possivel listar todos os carros
+deve ser possivel listar todos os carros de
 
 **RN** Regra de negocio
 Nao deve ser possivel cadrastrar uma especificao para um carro nao catrastrado.
@@ -55,3 +55,14 @@ Nao deve ser possivel criar um usuario onde o email ja esta cadastra-do.
 O Clinet Deve ter Obrigatoriamente uma licenca para dirigir valida.
 Nao deve ser possivel criar um client que tenha a licenca de dirigir ja cadastra-da.
 Somente Usuarios admins podem listar todos os Usuarios,
+
+## Rental
+
+**RF**
+deve ser possivel cadrastral um alugel
+
+**RN**
+O Aluguel deve ter duracao minima de 24 horas.
+Nao deve ser possivel cadastrar um aluguel caso ja exista um aberto para o mesmo client.
+Nao deve ser possvel cadastar um novo aluguel caso ja exista um aberto para o mesmo carro,
+O client deve esta logado na aplicacao

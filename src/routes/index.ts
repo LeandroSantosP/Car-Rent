@@ -1,17 +1,20 @@
 import { Router } from "express";
-import { carRouter } from "./Car";
+import { carRoutes } from "./Car";
 import { categoryRoutes } from "./Category";
 import { clientRoutes } from "./Client";
+import { rentalRoutes } from "./Rental";
 import { specificationRoutes } from "./Specification";
 
 const AllRoutes = Router();
 
 AllRoutes.use("/category", categoryRoutes);
 
-AllRoutes.use("/specification", specificationRoutes);
+AllRoutes.use("/car/specification", specificationRoutes);
 
-AllRoutes.use("/car", carRouter);
+AllRoutes.use("/car", carRoutes);
 
 AllRoutes.use("/client", clientRoutes);
+
+AllRoutes.use("/rental", rentalRoutes);
 
 export { AllRoutes };

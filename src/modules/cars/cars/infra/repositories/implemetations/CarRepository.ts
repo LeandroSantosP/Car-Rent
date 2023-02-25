@@ -1,8 +1,6 @@
 import { prisma } from "@/modules/shared/prisma/client";
 import { Car } from "../../Entites/Car";
 
-import { CarDTO } from "../dtos/CarDTO";
-
 import {
   CrateImageProps,
   ICarRepository,
@@ -16,6 +14,10 @@ export class CarRepository implements ICarRepository {
   constructor() {
     this.prisma = prisma;
   }
+  async CreateManyImage(car_id: string, image: string[]): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
   async delete(license_plate: string): Promise<void> {
     await this.prisma.car.delete({
       where: {
@@ -23,6 +25,40 @@ export class CarRepository implements ICarRepository {
       },
     });
     return;
+  }
+
+  async GetCarById(id: string): Promise<Car | null> {
+    const car = await this.prisma.car.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        car_image: true,
+        description: true,
+        category: true,
+        daily_rate: true,
+        brand: true,
+        license_plate: true,
+        created_at: true,
+        available: true,
+        Specification_Cars: {
+          select: {
+            specification: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+                created_at: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return car as any;
   }
   async CreateImage({
     license_plate,

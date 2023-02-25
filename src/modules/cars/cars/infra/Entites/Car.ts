@@ -1,3 +1,4 @@
+import { Specification } from "@/modules/cars/especification/infra/Entity/Specification";
 import { v4 as uuidV4 } from "uuid";
 import { CarImage } from "./CarImage";
 
@@ -12,6 +13,7 @@ export class Car {
   brand!: string;
   category_id?: string;
   created_at?: Date;
+  Specification_Cars?: Specification[];
   car_image?: CarImage[];
 
   constructor() {

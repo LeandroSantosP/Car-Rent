@@ -87,4 +87,19 @@ describe("Created Car", () => {
       await createNewCarUseCase.execute(newCar);
     }).rejects.toBeInstanceOf(AppError);
   });
+
+  it("should need throw new AppError license_plate does not exists!", () => {
+    expect(async () => {
+      const newCar = {
+        name: "Name Car",
+        description: "Description Car",
+        daily_rate: 100,
+        brand: "Brand",
+        license_plate: "",
+        fine_amount: 60,
+        category_id: "",
+      };
+      await createNewCarUseCase.execute(newCar);
+    }).rejects.toBeInstanceOf(AppError);
+  });
 });
