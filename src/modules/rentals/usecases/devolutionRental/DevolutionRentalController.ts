@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 import { DevolutionRentalUseCase } from "./DevolutionRentalUseCase";
 
 export class DevolutionRentalController {
-  async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
     const { id: client_id } = req.client;
@@ -11,6 +11,6 @@ export class DevolutionRentalController {
     const repository = container.resolve(DevolutionRentalUseCase);
     const rental = await repository.execute({ id, client_id });
 
-    res.status(201).json(rental);
+    return res.status(201).json(rental);
   }
 }

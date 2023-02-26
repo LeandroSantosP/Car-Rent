@@ -1,4 +1,4 @@
-import { CreateNewClientUseCase } from "@/modules/accounts/client/createClient/CreateNewClientUseCase";
+import { CreateNewClientUseCase } from "@/modules/accounts/client/usecases/createClient/CreateNewClientUseCase";
 import { Client } from "@/modules/accounts/client/infra/Entity/Client";
 import { ClientRepositoryInMemory } from "@/modules/accounts/client/infra/repositories/in-memory/client-repository-in-memory";
 

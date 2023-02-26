@@ -53,10 +53,18 @@ export class CreateRentalUseCase {
       throw new AppError("Is required to be greater than 24 hours.");
     }
 
+    const newRental = new Rental();
+
+    Object.assign(newRental, {
+      expect_return_Date: expected_return_date,
+      carId: car_id,
+      clientId: client_id,
+    });
+
     const rental = await this.rentalsRepository.create({
-      car_id,
-      expected_return_date,
-      client_id,
+      car_id: newRental.carId,
+      expected_return_date: newRental.expect_return_Date,
+      client_id: newRental.clientId,
     });
 
     // make car to be unavailable

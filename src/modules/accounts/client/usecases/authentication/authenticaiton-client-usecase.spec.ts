@@ -17,14 +17,14 @@ describe("Authentication", () => {
     );
   });
   it("should not be able to authentication client", async () => {
-    expect(async () => {
-      const infos = clientInfos();
-      await newClient(infos);
+    const infos = clientInfos();
+    await newClient(infos);
 
-      await authenticationClientUseCase.execute({
+    await expect(
+      authenticationClientUseCase.execute({
         email: infos.email,
         password: infos.password,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Email or Password Incorrect!!", 401));
   });
 });

@@ -1,9 +1,22 @@
 import { ICreateRentalDTO } from "../../infra/dtos/ICreateRentalDTO";
 import { Rental } from "../../infra/Entities/Rental";
-import { IRentalsRepository } from "../IRantalsRepository";
+import { IRentalsRepository, UpdateRentalProps } from "../IRantalsRepository";
 
 export class RentalsRepositoryInMemory implements IRentalsRepository {
   rentals: Rental[] = [];
+
+  async updateRental({
+    id,
+    end_date,
+    expect_return_Date,
+  }: UpdateRentalProps): Promise<Rental> {
+    const index = this.rentals.findIndex((rental) => rental.id === id);
+
+    this.rentals[index].end_date = end_date;
+    this.rentals[index].expect_return_Date = expect_return_Date;
+
+    return this.rentals[index];
+  }
 
   async findRentalById(id: string): Promise<Rental | null> {
     const rental = this.rentals.find((rental) => rental.id === id);
@@ -28,11 +41,14 @@ export class RentalsRepositoryInMemory implements IRentalsRepository {
     return newRental;
   }
   async findOpenRentalByCarId(car_id: string): Promise<Rental | null> {
-    return (
+    let res = this.rentals.filter((e) => e.carId === car_id);
+
+    const rental =
       this.rentals.find(
         (rental) => rental.carId == car_id && !rental.end_date
-      ) ?? null
-    );
+      ) ?? null;
+
+    return rental;
   }
   async findOpenRentalByClient(client_id: string): Promise<Rental | null> {
     return (

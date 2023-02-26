@@ -31,7 +31,31 @@ export class ClientRepository implements IClientRepository {
         id: client_id,
       },
       include: {
-        rantals: true,
+        rantals: {
+          select: {
+            id: true,
+            start_date: true,
+            end_date: true,
+            total: true,
+            expect_return_Date: true,
+            car: {
+              select: {
+                license_plate: true,
+                available: true,
+                name: true,
+                description: true,
+                brand: true,
+                daily_rate: true,
+                category: {
+                  select: {
+                    name: true,
+                    description: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 

@@ -1,5 +1,4 @@
 import { v4 as uuidV4 } from "uuid";
-import { Rantals } from "@prisma/client";
 
 export class Rental {
   id?: string;
@@ -15,6 +14,10 @@ export class Rental {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
+    }
+
+    if (!this.end_date) {
+      this.end_date = null;
     }
   }
 }

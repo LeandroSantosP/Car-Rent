@@ -21,15 +21,15 @@ describe("CreateCarsSpecification", () => {
     );
   });
 
-  it("should not add new Specification if license_plate of car not exits!", () => {
-    expect(async () => {
-      const carId = "sadsa";
-      const specifications_id = ["67832"];
-      await createCarsSpecificationUseCase.execute({
+  it("should not add new Specification if license_plate of car not exits!", async () => {
+    const carId = "sadsa";
+    const specifications_id = ["67832"];
+    await expect(
+      createCarsSpecificationUseCase.execute({
         carId,
         specifications_id,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car does not Exits!"));
   });
 
   it("should add new Specification on the car", async () => {
