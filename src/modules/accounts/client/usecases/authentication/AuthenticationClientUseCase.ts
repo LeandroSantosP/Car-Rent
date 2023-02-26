@@ -3,8 +3,8 @@ import { Client } from "@prisma/client";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { ClientDTO } from "../infra/repositories/dtos/ClientDTO";
-import { IClientRepository } from "../infra/repositories/IClientRepository";
+import { ClientDTO } from "../../infra/repositories/dtos/ClientDTO";
+import { IClientRepository } from "../../infra/repositories/IClientRepository";
 
 interface IRequest {
   password: string;

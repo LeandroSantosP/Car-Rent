@@ -30,6 +30,9 @@ export class ClientRepository implements IClientRepository {
       where: {
         id: client_id,
       },
+      include: {
+        rantals: true,
+      },
     });
 
     return client;

@@ -1,6 +1,6 @@
 import fs from "fs";
 import csvParse from "csv-parse";
-import { ICategoryRepository } from "../infra/repositories/ICategoryRepository";
+import { ICategoryRepository } from "../../infra/repositories/ICategoryRepository";
 import { AppError } from "@/modules/shared/infra/middleware/AppError";
 import { inject, injectable } from "tsyringe";
 

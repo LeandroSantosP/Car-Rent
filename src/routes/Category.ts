@@ -1,9 +1,9 @@
 import { ensureAdministrations } from "@/modules/shared/infra/middleware/ensureAdministrations";
 import { EnsureAuthentication } from "@/modules/shared/infra/middleware/ensureAuthentication";
 import { Router } from "express";
-import { CreateNewCategoryController } from "../modules/cars/categories/CreataNewCategory/CreateNewCategoryController";
+import { CreateNewCategoryController } from "@/modules/cars/categories/usecases/CreataNewCategory/CreateNewCategoryController";
 import multer from "multer";
-import { ImportNewCategoryController } from "@/modules/cars/categories/importNewCategory/importNewCategoryController";
+import { ImportNewCategoryController } from "@/modules/cars/categories/usecases/importNewCategory/importNewCategoryController";
 const categoryRoutes = Router();
 
 const upload = multer({ dest: "./tmp" });

@@ -1,7 +1,7 @@
 import { Specification } from "@/modules/cars/especification/infra/Entity/Specification";
+import { BlockList } from "net";
 import { Car } from "../Entites/Car";
 import { CarImage } from "../Entites/CarImage";
-import { CarDTO } from "./dtos/CarDTO";
 
 export interface ICarRepositoryProps {
   name: string;
@@ -29,6 +29,11 @@ export interface CrateImageProps {
   } | null;
 }
 
+export interface ToggleAvailabilityOfCarProps {
+  car_id: string;
+  availability: boolean;
+}
+
 export abstract class ICarRepository {
   abstract create({
     daily_rate,
@@ -53,6 +58,10 @@ export abstract class ICarRepository {
   abstract GetCarById(id: string): Promise<Car | null>;
 
   abstract CreateManyImage(car_id: string, image: string[]): Promise<void>;
+
+  abstract ToggleAvailabilityOfCar(
+    dados: ToggleAvailabilityOfCarProps
+  ): Promise<Car>;
 
   abstract ListAllCars(
     brand?: string,

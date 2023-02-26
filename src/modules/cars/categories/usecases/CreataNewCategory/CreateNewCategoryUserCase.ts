@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../shared/infra/middleware/AppError";
-import { CategoryDTO } from "../infra/repositories/dtos/CategoryDTO";
-import { ICategoryRepository } from "../infra/repositories/ICategoryRepository";
+import { AppError } from "../../../../shared/infra/middleware/AppError";
+import { CategoryDTO } from "../../infra/repositories/dtos/CategoryDTO";
+import { ICategoryRepository } from "../../infra/repositories/ICategoryRepository";
 
 interface IRequest {
   name: string;

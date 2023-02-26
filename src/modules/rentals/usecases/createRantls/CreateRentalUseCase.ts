@@ -3,6 +3,7 @@ import { Rental } from "../../infra/Entities/Rental";
 import { IRentalsRepository } from "../../repositories/IRantalsRepository";
 import { IDateProvider } from "@/modules/shared/provider/DateProvider/IDateProvider";
 import { inject, injectable } from "tsyringe";
+import { ICarRepository } from "@/modules/cars/cars/infra/repositories/ICarRepository";
 
 interface IRequest {
   car_id: string;
@@ -16,7 +17,9 @@ export class CreateRentalUseCase {
     @inject("RentalRepository")
     private rentalsRepository: IRentalsRepository,
     @inject("DayJsDateProvider")
-    private dateProvider: IDateProvider
+    private dateProvider: IDateProvider,
+    @inject("CarRepository")
+    private carRepository: ICarRepository
   ) {}
   async execute({
     car_id,
@@ -54,6 +57,13 @@ export class CreateRentalUseCase {
       car_id,
       expected_return_date,
       client_id,
+    });
+
+    // make car to be unavailable
+
+    await this.carRepository.ToggleAvailabilityOfCar({
+      availability: false,
+      car_id,
     });
 
     return rental;

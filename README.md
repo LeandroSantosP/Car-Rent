@@ -66,3 +66,17 @@ O Aluguel deve ter duracao minima de 24 horas.
 Nao deve ser possivel cadastrar um aluguel caso ja exista um aberto para o mesmo client.
 Nao deve ser possvel cadastar um novo aluguel caso ja exista um aberto para o mesmo carro,
 O client deve esta logado na aplicacao
+Ao efetuar um aluguel o carro em questao deve ficar indisponivel ate o fim do aluguel.
+
+## Devolucao de um carro
+
+**RF**
+Deve ser possivel realizar de devolucao de um carro.
+
+**RN**
+Se o carro for devolvido com menos de 24 horas, devera ser cobrado a diaria completa.
+Ao realizar a devolucao, o carro deve ser liberado para outro alguel.
+Ao realizar a devolucao, o clinet deve ser liberado para alugar outro carro.
+Caso o horario de devolucao seja superior ao horario provisto de entrega, deverar ser cobrado multa por propocionalmente aos dias de atraso.
+Caso haja multa, devera ser somado ao total do aluguel.
+O client deve esta logado na aplicacao

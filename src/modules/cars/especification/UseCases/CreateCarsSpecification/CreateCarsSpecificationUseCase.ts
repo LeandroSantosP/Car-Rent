@@ -40,7 +40,6 @@ export class CreateCarsSpecificationUseCase {
 
     const specIDsForRegister: string[] = [];
     for (let i = 0; i < allSpecification.length; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       specIDsForRegister.push(allSpecification[i].id!);
     }
 
@@ -63,11 +62,6 @@ export class CreateCarsSpecificationUseCase {
       carId
     );
 
-    /* Refatorar, os dados deven retorna atualizados { id } = req.client; delay de 1 request */
     return carExits;
   }
 }
-
-/* 
-
-*/

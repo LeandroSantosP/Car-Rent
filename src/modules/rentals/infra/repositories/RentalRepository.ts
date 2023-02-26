@@ -1,5 +1,8 @@
 import { prisma } from "@/modules/shared/prisma/client";
-import { IRentalsRepository } from "../../repositories/IRantalsRepository";
+import {
+  IRentalsRepository,
+  UpdateRentalProps,
+} from "../../repositories/IRantalsRepository";
 import { ICreateRentalDTO } from "../dtos/ICreateRentalDTO";
 import { Rental } from "../Entities/Rental";
 
@@ -9,10 +12,40 @@ export class RentalRepository implements IRentalsRepository {
   constructor() {
     this.prisma = prisma;
   }
+
+  async updateRental({
+    id,
+    end_date,
+    expect_return_Date,
+    total,
+  }: UpdateRentalProps): Promise<Rental> {
+    const rental = await this.prisma.rantals.update({
+      where: {
+        id,
+      },
+      data: {
+        total,
+        expect_return_Date,
+        end_date,
+      },
+    });
+    return rental;
+  }
+
+  async findRentalById(id: string): Promise<Rental | null> {
+    const rental = await this.prisma.rantals.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return rental;
+  }
   async findOpenRentalByCarId(card_id: string): Promise<Rental | null> {
     const rental = await this.prisma.rantals.findFirst({
       where: {
         carId: card_id,
+        end_date: null,
       },
     });
 
@@ -22,6 +55,7 @@ export class RentalRepository implements IRentalsRepository {
     const rental = await this.prisma.rantals.findFirst({
       where: {
         clientId: client_id,
+        end_date: null,
       },
     });
 

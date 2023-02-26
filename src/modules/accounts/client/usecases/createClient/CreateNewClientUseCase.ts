@@ -1,8 +1,8 @@
 import { AppError } from "@/modules/shared/infra/middleware/AppError";
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
-import { Client } from "../infra/Entity/Client";
-import { IClientRepository } from "../infra/repositories/IClientRepository";
+import { Client } from "../../infra/Entity/Client";
+import { IClientRepository } from "../../infra/repositories/IClientRepository";
 
 export type IRequest = {
   name: string;

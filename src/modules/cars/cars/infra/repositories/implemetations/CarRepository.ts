@@ -6,6 +6,7 @@ import {
   ICarRepository,
   ICarRepositoryProps,
   ICreateImageRequest,
+  ToggleAvailabilityOfCarProps,
 } from "../ICarRepository";
 
 export class CarRepository implements ICarRepository {
@@ -13,6 +14,21 @@ export class CarRepository implements ICarRepository {
 
   constructor() {
     this.prisma = prisma;
+  }
+
+  async ToggleAvailabilityOfCar({
+    availability,
+    car_id,
+  }: ToggleAvailabilityOfCarProps): Promise<Car> {
+    const data = await this.prisma.car.update({
+      where: {
+        id: car_id,
+      },
+      data: {
+        available: availability,
+      },
+    });
+    return data;
   }
   async CreateManyImage(car_id: string, image: string[]): Promise<void> {
     throw new Error("Method not implemented.");
@@ -43,6 +59,7 @@ export class CarRepository implements ICarRepository {
         license_plate: true,
         created_at: true,
         available: true,
+        fine_amount: true,
         Specification_Cars: {
           select: {
             specification: {

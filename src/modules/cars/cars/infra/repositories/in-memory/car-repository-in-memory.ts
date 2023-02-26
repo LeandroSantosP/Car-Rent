@@ -6,12 +6,23 @@ import {
   ICarRepository,
   ICarRepositoryProps,
   ICreateImageRequest,
+  ToggleAvailabilityOfCarProps,
 } from "../ICarRepository";
 
 export class CarRepositoryInMemory implements ICarRepository {
   public cars: Car[] = [];
   public carsImage: CarImage[] = [];
 
+  async ToggleAvailabilityOfCar(
+    dados: ToggleAvailabilityOfCarProps
+  ): Promise<Car> {
+    const index = this.cars.findIndex((car) => car.id === dados.car_id);
+    if (index !== -1) {
+      this.cars[index].available = dados.availability;
+    }
+
+    return this.cars[index];
+  }
   async GetCarById(id: string): Promise<Car | null> {
     const car = this.cars.find((car) => car.id === id);
     if (!car) {

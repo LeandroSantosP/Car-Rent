@@ -1,7 +1,7 @@
 import { AppError } from "@/modules/shared/infra/middleware/AppError";
 import { deleteFile } from "@/modules/shared/utils/file";
 import { inject, injectable } from "tsyringe";
-import { IClientRepository } from "../infra/repositories/IClientRepository";
+import { IClientRepository } from "../../infra/repositories/IClientRepository";
 
 interface IRequest {
   client_id: string;
