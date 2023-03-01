@@ -13,11 +13,11 @@ const createNewCarController = new CreateNewCarController();
 const createCarImageController = new UploadCarImageController();
 const listAvailableCarsController = new ListAvailableCarsController();
 const deleteCarController = new DeleteCarController();
-const uploadSingleImage = multer(uploadConfig.upload("./tmp/CarImage"));
+const uploadSingleImage = multer(uploadConfig);
 
+carRoutes.get("/list", listAvailableCarsController.handle);
 carRoutes.use(EnsureAuthentication);
 /* Public */
-carRoutes.get("/list", listAvailableCarsController.handle);
 /* Public - end*/
 /* Just Client - Start */
 

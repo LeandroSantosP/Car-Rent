@@ -4,8 +4,7 @@ import { ResetPasswordUseCase } from "./ResetPasswordUseCase";
 
 export class ResetPasswordController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { token } = req.query;
-
+    const { token } = req.query
     const { password } = req.body;
     const repository = container.resolve(ResetPasswordUseCase);
 
@@ -13,7 +12,7 @@ export class ResetPasswordController {
       token: token as string,
       password,
     });
-
+    
     return res.send();
   }
 }

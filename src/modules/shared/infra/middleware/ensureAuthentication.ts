@@ -24,15 +24,11 @@ export async function EnsureAuthentication(
 
   try {
     const { sub: client_id } = verify(Token, auth.secretToken) as IJWPayload;
-    const asss = verify(Token, auth.secretToken) as IJWPayload;
 
-    console.log(asss);
 
     req.client = {
       id: client_id!,
     };
-
-    console.log(client_id);
 
     next();
   } catch (err) {

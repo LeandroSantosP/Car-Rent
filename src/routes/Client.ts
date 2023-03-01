@@ -11,7 +11,7 @@ import { RefreshTokenController } from "@/modules/accounts/client/usecases/Refre
 
 const clientRoutes = Router();
 
-const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
+const uploadAvatar = multer(uploadConfig);
 
 const createNewClientController = new CreateNewClientController();
 const authenticationClientController = new AuthenticationClientController();

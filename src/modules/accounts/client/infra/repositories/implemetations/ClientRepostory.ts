@@ -84,11 +84,12 @@ export class ClientRepository implements IClientRepository {
     return newClient;
   }
   async FindByEmail(email: string): Promise<Client | null> {
-    const client = this.prisma.client.findUnique({
+    const client = await this.prisma.client.findUnique({
       where: {
         email,
       },
     });
+
     if (!client) {
       return null;
     }

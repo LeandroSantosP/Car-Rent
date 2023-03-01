@@ -10,9 +10,9 @@ const AllRoutes = Router();
 
 AllRoutes.use("/category", categoryRoutes);
 
-AllRoutes.use("/car/specification", specificationRoutes);
-
 AllRoutes.use("/car", carRoutes);
+
+AllRoutes.use("/car/specification", specificationRoutes);
 
 AllRoutes.use("/client", clientRoutes);
 
