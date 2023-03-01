@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,53 +18,64 @@ model Category {
 }
 
 model Client {
-  id             String    @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
   password       String
-  email          String    @unique
+  email          String        @unique
   driver_license String
   avatar         String?
-  admin          Boolean   @default(false)
-  created_at     DateTime  @default(now())
+  admin          Boolean       @default(false)
+  created_at     DateTime      @default(now())
   rantals        Rantals[]
+  ClientToken    ClientToken[]
 
   @@map("clients")
 }
 
+model ClientToken {
+  id String @id @default(uuid())
+
+  refresh_token String
+
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId String
+
+  expire_date DateTime
+
+  created_at DateTime @default(now())
+
+  @@map("client_token")
+}
+
 model Car {
-  id            String   @id @default(uuid())
-  name          String
-  description   String
-  daily_rate    Int
-  available     Boolean  @default(true)
-  license_plate String   @unique
-  fine_amount   Int
-  brand         String
-  created_at    DateTime @default(now())
-
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?
-
+  id                 String               @id @default(uuid())
+  name               String
+  description        String
+  daily_rate         Int
+  available          Boolean              @default(true)
+  license_plate      String               @unique
+  fine_amount        Int
+  brand              String
+  created_at         DateTime             @default(now())
+  categoryId         String?
   Specification_Cars Specification_Cars[]
-
-  car_image Car_Image[]
-  rantals   Rantals[]
+  car_image          Car_Image[]
+  category           Category?            @relation(fields: [categoryId], references: [id])
+  rantals            Rantals[]
 
   @@map("cars")
 }
 
 model Rantals {
-  id String @id @default(uuid())
-
+  id                 String    @id @default(uuid())
   start_date         DateTime  @default(now())
-  expect_return_Date DateTime
   end_date           DateTime?
+  expect_return_Date DateTime
   total              Int?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  car   Car    @relation(fields: [carId], references: [id])
+  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
   carId String
 
   client   Client @relation(fields: [clientId], references: [id])
@@ -80,30 +88,27 @@ model Car_Image {
   id         String   @id @default(uuid())
   image_name String
   created_at DateTime @default(now())
-
-  car   Car?    @relation(fields: [carId], references: [id], onDelete: Cascade)
-  carId String?
+  carId      String?
+  car        Car?     @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("car_images")
 }
 
 model Specification {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  created_at  DateTime @default(now())
-
+  id                 String               @id @default(uuid())
+  name               String
+  description        String
+  created_at         DateTime             @default(now())
   Specification_Cars Specification_Cars[]
 
   @@map("specification")
 }
 
 model Specification_Cars {
-  specification   Specification @relation(fields: [specificationId], references: [id], onDelete: Cascade)
   specificationId String
-
-  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
-  carId String
+  carId           String
+  car             Car           @relation(fields: [carId], references: [id], onDelete: Cascade)
+  specification   Specification @relation(fields: [specificationId], references: [id], onDelete: Cascade)
 
   @@id([specificationId, carId])
 }

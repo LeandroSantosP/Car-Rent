@@ -80,3 +80,14 @@ Ao realizar a devolucao, o clinet deve ser liberado para alugar outro carro.
 Caso o horario de devolucao seja superior ao horario provisto de entrega, deverar ser cobrado multa por propocionalmente aos dias de atraso.
 Caso haja multa, devera ser somado ao total do aluguel.
 O client deve esta logado na aplicacao
+
+# Recuperacao de senha
+
+**RF**
+Deve ser possivel o client recuperar a senha informando o e-email
+O Client deve recever um e-email com o passo a passo para a recuperacao de senha
+O Client deve conseguir inserir uma nova senha
+
+**RN**
+O Client precisa informar uma nova senha
+O link enviado para a recuperacao deve expirar em 3 horas

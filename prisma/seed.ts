@@ -40,8 +40,6 @@ async function main() {
       },
     },
   });
-  console.log(Leandro);
-  console.log(car_witj_category);
 }
 
 main()

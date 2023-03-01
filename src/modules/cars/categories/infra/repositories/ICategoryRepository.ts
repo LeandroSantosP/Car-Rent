@@ -1,4 +1,4 @@
-import { CategoryDTO } from "./dtos/CategoryDTO";
+import { Category } from "../Entites/CategoryEntity";
 
 export interface ICreateCategoryProps {
   name: string;
@@ -9,12 +9,15 @@ export abstract class ICategoryRepository {
   abstract create({
     name,
     description,
-  }: ICreateCategoryProps): Promise<CategoryDTO>;
+  }: ICreateCategoryProps): Promise<Category>;
 
-  abstract GetCategoryById(category_id: string): Promise<CategoryDTO | null>;
-  abstract GetCategoryByName(
-    category_name: string
-  ): Promise<CategoryDTO | null>;
+  abstract GetCategoryById(category_id: string): Promise<Category | null>;
+  abstract GetCategoryByName(category_name: string): Promise<Category | null>;
 
-  abstract ListAllCategory(): Promise<CategoryDTO[]>;
+  abstract ListAllCategory(): Promise<Category[]>;
+
+  abstract PutCategoryOnCar(
+    category_name: string,
+    license_plate: string
+  ): Promise<Category>;
 }

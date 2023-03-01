@@ -3,6 +3,7 @@ import { Client } from "../../Entity/Client";
 import {
   IClientRepository,
   ICreateRequest,
+  IUpdatedPasswordRequest,
   IUploadAvatarRequest,
 } from "../IClientRepository";
 
@@ -11,6 +12,7 @@ export class ClientRepository implements IClientRepository {
   constructor() {
     this.prisma = prisma;
   }
+
   async UploadAvatar({
     avatarRef,
     client_id,
@@ -106,6 +108,22 @@ export class ClientRepository implements IClientRepository {
       },
     });
 
+    return client;
+  }
+
+  async updatedPassword({
+    client_id,
+    newPassword,
+  }: IUpdatedPasswordRequest): Promise<Client> {
+    const client = await this.prisma.client.update({
+      where: {
+        id: client_id,
+      },
+
+      data: {
+        password: newPassword,
+      },
+    });
     return client;
   }
 }

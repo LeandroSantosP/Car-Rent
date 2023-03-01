@@ -1,3 +1,4 @@
+import { Car } from "@/modules/cars/cars/infra/Entites/Car";
 import { v4 as uuidV4 } from "uuid";
 
 export class Category {
@@ -5,6 +6,7 @@ export class Category {
   name!: string;
   description!: string;
   created_at?: Date;
+  Car?: Car[];
 
   constructor() {
     if (!this.id) {

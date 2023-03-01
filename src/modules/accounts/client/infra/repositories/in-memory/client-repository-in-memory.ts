@@ -2,6 +2,7 @@ import { Client } from "../../Entity/Client";
 import {
   IClientRepository,
   ICreateRequest,
+  IUpdatedPasswordRequest,
   IUploadAvatarRequest,
 } from "../IClientRepository";
 
@@ -20,7 +21,12 @@ export class ClientRepositoryInMemory implements IClientRepository {
     avatarRef,
     client_id,
   }: IUploadAvatarRequest): Promise<void> {
-    throw new Error("Method not implemented.");
+    const index = this.Clients.findIndex((client) => client.id === client_id);
+
+    if (index !== -1) {
+      this.Clients[index].avatar = avatarRef;
+    }
+    return;
   }
   async GetClientByLicenseDriver(
     driver_license: string
@@ -68,5 +74,16 @@ export class ClientRepositoryInMemory implements IClientRepository {
   }
   async ListAllClientsADM(): Promise<Client[]> {
     return this.Clients;
+  }
+
+  async updatedPassword({
+    client_id,
+    newPassword,
+  }: IUpdatedPasswordRequest): Promise<Client> {
+    const index = this.Clients.findIndex((client) => client.id === client_id);
+
+    this.Clients[index].password = newPassword;
+
+    return this.Clients[index];
   }
 }

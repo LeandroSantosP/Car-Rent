@@ -13,6 +13,11 @@ export interface IUploadAvatarRequest {
   avatarRef: string;
 }
 
+export interface IUpdatedPasswordRequest {
+  client_id: string;
+  newPassword: string;
+}
+
 export abstract class IClientRepository {
   abstract create({
     avatar,
@@ -34,4 +39,9 @@ export abstract class IClientRepository {
   abstract GetClientByLicenseDriver(
     driver_license: string
   ): Promise<Client | null>;
+
+  abstract updatedPassword({
+    client_id,
+    newPassword,
+  }: IUpdatedPasswordRequest): Promise<Client>;
 }

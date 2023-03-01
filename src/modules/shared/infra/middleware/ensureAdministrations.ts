@@ -23,8 +23,6 @@ export async function ensureAdministrations(
     });
   }
 
-  console.log(client);
-
   if (!clientIsAdmin) {
     throw new AppError("Not Authorization!");
   }

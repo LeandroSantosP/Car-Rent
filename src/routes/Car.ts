@@ -1,7 +1,7 @@
-import { ListAvailableCarsController } from "@/modules/cars/cars/UseCase/ListCars/ListAvailableCarsController";
-import { UploadCarImageController } from "@/modules/cars/cars/UseCase/carImage/UploadCarImageController";
-import { CreateNewCarController } from "@/modules/cars/cars/UseCase/CreateNewCar/CreateNewCarController";
-import { DeleteCarController } from "@/modules/cars/cars/UseCase/deleteCar/DeleteCarController";
+import { ListAvailableCarsController } from "@/modules/cars/cars/usecases/ListCars/ListAvailableCarsController";
+import { UploadCarImageController } from "@/modules/cars/cars/usecases/carImage/UploadCarImageController";
+import { CreateNewCarController } from "@/modules/cars/cars/usecases/CreateNewCar/CreateNewCarController";
+import { DeleteCarController } from "@/modules/cars/cars/usecases/deleteCar/DeleteCarController";
 import { EnsureAuthentication } from "@/modules/shared/infra/middleware/ensureAuthentication";
 import { ensureAdministrations } from "@/modules/shared/infra/middleware/ensureAdministrations";
 import uploadConfig from "@/modules/shared/utils/uploadConfig";

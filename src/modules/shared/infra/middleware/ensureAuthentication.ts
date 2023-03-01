@@ -1,13 +1,14 @@
 import { ClientRepository } from "@/modules/accounts/client/infra/repositories/implemetations/ClientRepostory";
+import { ClientTokenRepository } from "@/modules/accounts/client/infra/repositories/implemetations/ClientTokenRepository";
+import auth from "@/modules/config/auth";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { AppError } from "./AppError";
 
 interface IJWPayload {
-  clientId: string;
+  sub: string;
 }
 
-const clientRepository = new ClientRepository();
 export async function EnsureAuthentication(
   req: Request,
   res: Response,
@@ -22,20 +23,16 @@ export async function EnsureAuthentication(
   const Token = authorization.split(" ")[1];
 
   try {
-    const { clientId } = verify(
-      Token,
-      "c9102901f17290a4185ef62434fd9881"
-    ) as IJWPayload;
+    const { sub: client_id } = verify(Token, auth.secretToken) as IJWPayload;
+    const asss = verify(Token, auth.secretToken) as IJWPayload;
 
-    const client = await clientRepository.FindById(clientId);
-
-    if (!client) {
-      throw new AppError("Not Authorization!");
-    }
+    console.log(asss);
 
     req.client = {
-      id: client.id!,
+      id: client_id!,
     };
+
+    console.log(client_id);
 
     next();
   } catch (err) {

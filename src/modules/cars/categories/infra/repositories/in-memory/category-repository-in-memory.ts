@@ -1,3 +1,4 @@
+import { Car } from "@/modules/cars/cars/infra/Entites/Car";
 import "reflect-metadata";
 import { Category } from "../../Entites/CategoryEntity";
 import { CategoryDTO } from "../dtos/CategoryDTO";
@@ -7,7 +8,7 @@ import {
 } from "../ICategoryRepository";
 
 export class CategoryRepositoryInMemory implements ICategoryRepository {
-  categories: CategoryDTO[] = [];
+  categories: Category[] = [];
 
   async GetCategoryById(category_id: string): Promise<CategoryDTO | null> {
     const category = this.categories.find((cate) => cate.id === category_id);
@@ -48,32 +49,25 @@ export class CategoryRepositoryInMemory implements ICategoryRepository {
 
     return NewCategory;
   }
+
+  async PutCategoryOnCar(
+    category_name: string,
+    license_plate: string
+  ): Promise<Category> {
+    const categoryForUpdate = this.categories.find(
+      (ct) => ct.name === category_name
+    ) as Category;
+
+    const car = new Car();
+    car.license_plate = license_plate;
+
+    categoryForUpdate.Car?.push(car);
+
+    // Updated category on Array
+
+    const categoryIndex = this.categories.indexOf(categoryForUpdate);
+    this.categories[categoryIndex] = categoryForUpdate;
+
+    return categoryForUpdate;
+  }
 }
-
-// import { RentalsUseCase } from "./RentalsUseCase";
-
-// describe("Preview", () => {
-//   it("should simulate the rent", async () => {
-//     const preview = new RentalsUseCase();
-
-//     const rent = await preview.execute({
-//       licensePlate: "ABC-1234",
-//       days: 7,
-//       personAge: 18,
-//     });
-
-//     expect(rent).toBe(275);
-//   });
-
-//   it("should simulate the rent", async () => {
-//     const preview = new RentalsUseCase();
-
-//     const rent = await preview.execute({
-//       licensePlate: "ABC-1111",
-//       days: 7,
-//       personAge: 18,
-//     });
-
-//     expect(rent).toBe(235.5);
-//   });
-// });

@@ -46,8 +46,6 @@ describe("create Rental", () => {
       expected_return_date: add24hors,
     });
 
-    console.log(rental);
-
     expect(rental).toHaveProperty("id");
     expect(rental).toHaveProperty("start_date");
   });

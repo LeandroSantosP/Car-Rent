@@ -16,6 +16,8 @@ export class AvatarImportUseCase {
   ) {}
 
   async execute({ avatarRef, client_id }: IRequest) {
+    console.log(client_id);
+
     const client = await this.clientRepository.FindById(client_id);
 
     if (client?.avatar) {
