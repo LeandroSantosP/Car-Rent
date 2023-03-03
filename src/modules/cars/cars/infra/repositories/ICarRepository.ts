@@ -1,3 +1,4 @@
+import { Category } from "@/modules/cars/categories/infra/Entites/CategoryEntity";
 import { Specification } from "@/modules/cars/especification/infra/Entity/Specification";
 import { BlockList } from "net";
 import { Car } from "../Entites/Car";
@@ -68,4 +69,13 @@ export abstract class ICarRepository {
     category_id?: string,
     car_name?: string
   ): Promise<Car[]>;
+
+  abstract LinkCarOnCategory(
+    license_plate: string,
+    category_id: string
+  ): Promise<
+    Car & {
+      category: Category | null;
+    }
+  >;
 }

@@ -1,3 +1,4 @@
+import { Expose } from "class-transformer";
 import { v4 as uuidV4 } from "uuid";
 
 export class Client {

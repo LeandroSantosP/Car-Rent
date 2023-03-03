@@ -1,3 +1,4 @@
+import { Category } from "@/modules/cars/categories/infra/Entites/CategoryEntity";
 import { prisma } from "@/modules/shared/prisma/client";
 import { Car } from "../../Entites/Car";
 
@@ -127,13 +128,19 @@ export class CarRepository implements ICarRepository {
     return;
   }
 
-  async GetCarByLicensePlate(license_plate: string): Promise<Car | null> {
+  async GetCarByLicensePlate(license_plate: string): Promise<
+    | (Car & {
+        category: Category | null;
+      })
+    | null
+    | any
+  > {
     const carByLicense = await this.prisma.car.findFirst({
       where: {
         license_plate,
       },
       include: {
-        car_image: true,
+        category: true,
       },
     });
 
@@ -152,5 +159,32 @@ export class CarRepository implements ICarRepository {
     };
     const allCars = await this.prisma.car.findMany({ where });
     return allCars;
+  }
+  async LinkCarOnCategory(
+    license_plate: string,
+    category_id: string
+  ): Promise<
+    | (Car & {
+        category: Category | null;
+      })
+    | any
+  > {
+    const carUpdated = await this.prisma.car.update({
+      where: {
+        license_plate,
+      },
+      data: {
+        category: {
+          connect: {
+            id: category_id,
+          },
+        },
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    return carUpdated;
   }
 }

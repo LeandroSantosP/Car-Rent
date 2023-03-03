@@ -21,7 +21,6 @@ export class ResetPasswordUseCase {
     private ClientRepository: IClientRepository
   ) {}
   async execute({ password, token }: IRequest): Promise<void> {
-    
     const clientToken = await this.ClientTokenRepository.findByRefreshToken(
       token
     );
@@ -34,23 +33,19 @@ export class ResetPasswordUseCase {
       clientToken.expire_date,
       this.DateProvider.dateNow()
     );
-    
 
     if (tokenIsExpires) {
       throw new AppError("Token already Expired!");
     }
 
     const client = await this.ClientRepository.FindById(clientToken.clientId);
-    
+
     const hashPassword = await hash(password, 9);
 
     const updatedClientPassword = await this.ClientRepository.updatedPassword({
       client_id: client?.id!,
       newPassword: hashPassword,
     });
-
-    // console.log(updatedClientPassword);
-    
 
     await this.ClientTokenRepository.deleteById(clientToken.id!);
 

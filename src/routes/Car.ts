@@ -7,12 +7,14 @@ import { ensureAdministrations } from "@/modules/shared/infra/middleware/ensureA
 import uploadConfig from "@/modules/shared/utils/uploadConfig";
 import { Router } from "express";
 import multer from "multer";
+import { CategoryOnCarController } from "@/modules/cars/cars/usecases/categoryOnCar/CategoryOnCarController";
 const carRoutes = Router();
 
 const createNewCarController = new CreateNewCarController();
 const createCarImageController = new UploadCarImageController();
 const listAvailableCarsController = new ListAvailableCarsController();
 const deleteCarController = new DeleteCarController();
+const categoryOnCategoryController = new CategoryOnCarController();
 const uploadSingleImage = multer(uploadConfig);
 
 carRoutes.get("/list", listAvailableCarsController.handle);
@@ -26,6 +28,8 @@ carRoutes.use(EnsureAuthentication);
 carRoutes.use(ensureAdministrations);
 carRoutes.delete("/delete/:license_plate", deleteCarController.handle);
 carRoutes.post("/", createNewCarController.handle);
+carRoutes.patch("/category", categoryOnCategoryController.handle);
+
 carRoutes.post(
   "/images/:license_plate",
   uploadSingleImage.single("carImage"),

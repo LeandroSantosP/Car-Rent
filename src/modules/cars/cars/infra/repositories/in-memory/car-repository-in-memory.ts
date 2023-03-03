@@ -110,4 +110,20 @@ export class CarRepositoryInMemory implements ICarRepository {
 
     return carByLicensePlate;
   }
+
+  async LinkCarOnCategory(
+    license_plate: string,
+    category_id: string
+  ): Promise<Car> {
+    const index = this.cars.findIndex(
+      (car) => car.license_plate === license_plate
+    );
+
+    if (index !== -1) {
+      this.cars[index].category_id = category_id;
+    }
+    console.log(category_id);
+
+    return this.cars[index];
+  }
 }

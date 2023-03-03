@@ -59,8 +59,8 @@ model Car {
   created_at         DateTime             @default(now())
   categoryId         String?
   Specification_Cars Specification_Cars[]
-  car_image          Car_Image[]
   category           Category?            @relation(fields: [categoryId], references: [id])
+  car_image          Car_Image[]
   rantals            Rantals[]
 
   @@map("cars")

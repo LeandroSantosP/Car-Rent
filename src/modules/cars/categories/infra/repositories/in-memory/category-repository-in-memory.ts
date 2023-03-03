@@ -1,7 +1,6 @@
 import { Car } from "@/modules/cars/cars/infra/Entites/Car";
 import "reflect-metadata";
 import { Category } from "../../Entites/CategoryEntity";
-import { CategoryDTO } from "../dtos/CategoryDTO";
 import {
   ICategoryRepository,
   ICreateCategoryProps,
@@ -10,7 +9,7 @@ import {
 export class CategoryRepositoryInMemory implements ICategoryRepository {
   categories: Category[] = [];
 
-  async GetCategoryById(category_id: string): Promise<CategoryDTO | null> {
+  async GetCategoryById(category_id: string): Promise<Category | null> {
     const category = this.categories.find((cate) => cate.id === category_id);
 
     if (!category) {
@@ -19,7 +18,7 @@ export class CategoryRepositoryInMemory implements ICategoryRepository {
 
     return category;
   }
-  async GetCategoryByName(category_name: string): Promise<CategoryDTO | null> {
+  async GetCategoryByName(category_name: string): Promise<Category | null> {
     const category = await this.categories.find(
       (category) => category.name === category_name
     );
@@ -29,14 +28,11 @@ export class CategoryRepositoryInMemory implements ICategoryRepository {
     return category;
   }
 
-  async ListAllCategory(): Promise<CategoryDTO[]> {
+  async ListAllCategory(): Promise<Category[]> {
     return this.categories;
   }
 
-  async create({
-    name,
-    description,
-  }: ICreateCategoryProps): Promise<CategoryDTO> {
+  async create({ name, description }: ICreateCategoryProps): Promise<Category> {
     const NewCategory = new Category();
 
     Object.assign(NewCategory, {

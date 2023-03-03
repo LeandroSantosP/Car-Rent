@@ -1,4 +1,6 @@
 import { Specification } from "@/modules/cars/especification/infra/Entity/Specification";
+import { Rental } from "@/modules/rentals/infra/Entities/Rental";
+import { Category } from "@/modules/cars/categories/infra/Entites/CategoryEntity";
 import { v4 as uuidV4 } from "uuid";
 import { CarImage } from "./CarImage";
 
@@ -15,6 +17,8 @@ export class Car {
   created_at?: Date;
   Specification_Cars?: Specification[];
   car_image?: CarImage[];
+  category?: Category;
+  rantals?: Rental[];
 
   constructor() {
     if (!this.id) {

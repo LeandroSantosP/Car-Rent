@@ -8,6 +8,7 @@ import { Router } from "express";
 import multer from "multer";
 import { GetClientInfosController } from "@/modules/accounts/client/usecases/GetClientInfos/GetClientInfosContoller";
 import { RefreshTokenController } from "@/modules/accounts/client/usecases/RefreshToken/RefreshTokenController";
+import { ClientProfileController } from "@/modules/accounts/client/usecases/ClientProfile/ClientProfileController";
 
 const clientRoutes = Router();
 
@@ -18,12 +19,14 @@ const authenticationClientController = new AuthenticationClientController();
 const avatarImportController = new AvatarImportController();
 const clientInfosController = new GetClientInfosController();
 const refreshTokenController = new RefreshTokenController();
+const clientProfileController = new ClientProfileController();
 
 clientRoutes.post("/", createNewClientController.handle);
 clientRoutes.post("/session", authenticationClientController.handle);
 clientRoutes.post("/refresh-token", refreshTokenController.handle);
 clientRoutes.use(EnsureAuthentication);
-clientRoutes.get("/", clientInfosController.handle);
+clientRoutes.get("/profile", clientProfileController.handle);
+// clientRoutes.get("/", clientInfosController.handle);
 clientRoutes.patch(
   "/avatar",
   uploadAvatar.single("avatar"),
